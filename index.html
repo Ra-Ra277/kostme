@@ -863,6 +863,85 @@
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background: rgba(0,0,0,0.6);
+            padding-top: 60px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            background: #fff;
+            margin: auto;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+            animation: fadeIn 0.4s;
+        }
+
+        .close-btn {
+            color: #333;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .close-btn:hover { color: red; }
+
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .modal-image {
+            flex: 1 1 300px;
+            min-height: 250px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .modal-info {
+            flex: 1 1 300px;
+        }
+
+        .modal-info h2 { margin-top: 0; }
+        .modal-features { list-style: none; padding: 0; margin: 10px 0; }
+        .modal-features li { margin: 5px 0; }
+        .modal-price {
+            font-size: 20px;
+            color: #27ae60;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .modal-map {
+            flex: 1 1 100%;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .nav-links, .nav-actions {
@@ -913,69 +992,15 @@
             .newsletter-form input, .newsletter-form button {
                 border-radius: 0;
             }
-        }
-
-        /* Modal Styles */
-            .modal {
-                display: none; 
-                position: fixed;
-                z-index: 9999;
-                left: 0; top: 0;
-                width: 100%; height: 100%;
-                overflow: auto;
-                background: rgba(0,0,0,0.6);
-                padding-top: 60px;
-                transition: all 0.3s ease-in-out;
+            
+            .modal-content {
+                width: 95%;
+                padding: 15px;
             }
-
-        .modal-content {
-                background: #fff;
-                margin: auto;
-                border-radius: 12px;
-                padding: 20px;
-                max-width: 800px;
-                position: relative;
-                animation: fadeIn 0.4s;
-        }
-
-        .close-btn {
-                color: #333;
-                position: absolute;
-                right: 20px;
-                top: 15px;
-                font-size: 28px;
-                cursor: pointer;
-                transition: 0.3s;
-        }
-
-        .close-btn:hover { color: red; }
-
-        .modal-body {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-        }
-
-        .modal-image {
-                flex: 1 1 300px;
-                min-height: 250px;
-                border-radius: 10px;
-                background-size: cover;
-                background-position: center;
-        }
-
-        .modal-info {
-                flex: 1 1 300px;
-        }
-
-        .modal-info h2 { margin-top: 0; }
-        .modal-features { list-style: none; padding: 0; margin: 10px 0; }
-        .modal-features li { margin: 5px 0; }
-        .modal-price {
-                font-size: 20px;
-                color: #27ae60;
-                font-weight: bold;
-                margin: 10px 0;
+            
+            .modal-map {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -1088,6 +1113,7 @@
             <p class="section-subtitle">Berikut adalah beberapa kos premium dengan fasilitas lengkap dan lokasi strategis</p>
         </div>
         <div class="properties-container">
+            <!-- Kos Mawar Indah -->
             <div class="property-card">
                 <div class="property-badge">Tour 360° Tersedia</div>
                 <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1555854871-d6df9733f6ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
@@ -1121,11 +1147,12 @@
                         <button class="btn-book" onclick="bookProperty('Kos Mawar Indah')">
                             <i class="fab fa-whatsapp"></i> Pesan via WA
                         </button>
-                        <button class="btn-detail">Detail</button>
+                        <button class="btn-detail" data-property="kos-mawar">Detail</button>
                     </div>
                 </div>
             </div>
             
+            <!-- Kos Melati Asri -->
             <div class="property-card">
                 <div class="property-badge">Tour 360° Tersedia</div>
                 <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
@@ -1159,11 +1186,12 @@
                         <button class="btn-book" onclick="bookProperty('Kos Melati Asri')">
                             <i class="fab fa-whatsapp"></i> Pesan via WA
                         </button>
-                        <button class="btn-detail">Detail</button>
+                        <button class="btn-detail" data-property="kos-melati">Detail</button>
                     </div>
                 </div>
             </div>
             
+            <!-- Kos Anggrek Permai -->
             <div class="property-card">
                 <div class="property-badge">Tour 360° Tersedia</div>
                 <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
@@ -1197,7 +1225,7 @@
                         <button class="btn-book" onclick="bookProperty('Kos Anggrek Permai')">
                             <i class="fab fa-whatsapp"></i> Pesan via WA
                         </button>
-                        <button class="btn-detail">Detail</button>
+                        <button class="btn-detail" data-property="kos-anggrek">Detail</button>
                     </div>
                 </div>
             </div>
@@ -1340,31 +1368,77 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-       <!-- Property Detail Modal -->
-<div id="property-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div class="modal-body">
-            <div class="modal-image" style="background-image:url('https://source.unsplash.com/800x500/?apartment');"></div>
-            <div class="modal-info">
-                <h2>Kos Eksklusif Jakarta</h2>
-                <p>Lokasi: Jakarta Selatan</p>
-                <ul class="modal-features">
-                    <li><i class="fas fa-bed"></i> 1 Kamar Tidur</li>
-                    <li><i class="fas fa-wifi"></i> Internet WiFi</li>
-                    <li><i class="fas fa-shower"></i> Kamar Mandi Dalam</li>
-                    <li><i class="fas fa-tv"></i> Smart TV</li>
-                    <li><i class="fas fa-utensils"></i> Dapur Bersama</li>
-                </ul>
-                <div class="modal-price">Rp 2.500.000 / bulan</div>
-                <button class="btn-book"><i class="fas fa-calendar-check"></i> Booking Sekarang</button>
+    <!-- Property Detail Modal -->
+    <div id="property-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image" id="modal-image"></div>
+                <div class="modal-info">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-location"></p>
+                    <ul class="modal-features" id="modal-features"></ul>
+                    <div class="modal-price" id="modal-price"></div>
+                    <button class="btn-book" id="modal-book-btn">
+                        <i class="fab fa-whatsapp"></i> Pesan via WA
+                    </button>
+                </div>
+                <div class="modal-map" id="modal-map">
+                    <i class="fas fa-map-marked-alt" style="font-size: 48px; margin-right: 15px;"></i>
+                    <span>Peta Lokasi Kos</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 
     <script>
+        // Data properti kos
+        const properties = {
+            'kos-mawar': {
+                title: 'Kos Mawar Indah',
+                location: 'Jakarta Selatan',
+                image: 'https://images.unsplash.com/photo-1555854871-d6df9733f6ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                price: 'Rp 1.500.000/bulan',
+                features: [
+                    '<i class="fas fa-bed"></i> 1 Kamar Tidur',
+                    '<i class="fas fa-wifi"></i> Internet WiFi',
+                    '<i class="fas fa-shower"></i> Kamar Mandi Dalam',
+                    '<i class="fas fa-car"></i> Parkir Motor',
+                    '<i class="fas fa-utensils"></i> Dapur Bersama'
+                ],
+                mapLocation: 'Jakarta Selatan, Indonesia'
+            },
+            'kos-melati': {
+                title: 'Kos Melati Asri',
+                location: 'Bandung',
+                image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                price: 'Rp 2.200.000/bulan',
+                features: [
+                    '<i class="fas fa-bed"></i> 2 Kamar Tidur',
+                    '<i class="fas fa-wifi"></i> Internet WiFi',
+                    '<i class="fas fa-shower"></i> Kamar Mandi Dalam',
+                    '<i class="fas fa-tv"></i> Smart TV',
+                    '<i class="fas fa-car"></i> Parkir Mobil & Motor',
+                    '<i class="fas fa-utensils"></i> Dapur Bersama'
+                ],
+                mapLocation: 'Bandung, Indonesia'
+            },
+            'kos-anggrek': {
+                title: 'Kos Anggrek Permai',
+                location: 'Surabaya',
+                image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                price: 'Rp 1.200.000/bulan',
+                features: [
+                    '<i class="fas fa-bed"></i> 1 Kamar Tidur',
+                    '<i class="fas fa-wifi"></i> Internet WiFi',
+                    '<i class="fas fa-shower"></i> Kamar Mandi Luar',
+                    '<i class="fas fa-car"></i> Parkir Motor',
+                    '<i class="fas fa-utensils"></i> Dapur Bersama'
+                ],
+                mapLocation: 'Surabaya, Indonesia'
+            }
+        };
+
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
@@ -1459,19 +1533,50 @@
         const detailButtons = document.querySelectorAll(".btn-detail");
 
         detailButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-        modal.style.display = "block";
+            btn.addEventListener("click", () => {
+                const propertyId = btn.getAttribute('data-property');
+                const property = properties[propertyId];
+                
+                if (property) {
+                    // Update modal content
+                    document.getElementById('modal-title').textContent = property.title;
+                    document.getElementById('modal-location').textContent = `Lokasi: ${property.location}`;
+                    document.getElementById('modal-image').style.backgroundImage = `url('${property.image}')`;
+                    document.getElementById('modal-price').textContent = property.price;
+                    
+                    // Update features list
+                    const featuresList = document.getElementById('modal-features');
+                    featuresList.innerHTML = '';
+                    property.features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.innerHTML = feature;
+                        featuresList.appendChild(li);
+                    });
+                    
+                    // Update booking button
+                    const bookBtn = document.getElementById('modal-book-btn');
+                    bookBtn.onclick = () => bookProperty(property.title);
+                    
+                    // Update map placeholder
+                    document.getElementById('modal-map').innerHTML = `
+                        <i class="fas fa-map-marked-alt" style="font-size: 48px; margin-right: 15px;"></i>
+                        <span>Peta Lokasi ${property.title} - ${property.mapLocation}</span>
+                    `;
+                    
+                    // Show modal
+                    modal.style.display = "block";
+                }
+            });
         });
-    });
 
-         closeBtn.addEventListener("click", () => {
-         modal.style.display = "none";
-         });
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
 
         window.addEventListener("click", (e) => {
-         if (e.target === modal) {
-        modal.style.display = "none";
-        }
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
         });
     </script>
 </body>
