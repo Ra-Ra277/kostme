@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KosMe - Temukan Kos Premium dengan Tour Virtual</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.3/photoswipe.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2A4B7C;
+            --primary-light: #3A6BC5;
+            --secondary: #FF9F43;
+            --accent: #FF6B6B;
+            --dark: #1A1A2E;
+            --light: #F8F9FF;
+            --gray: #6C757D;
+            --gray-light: #E9ECEF;
+            --white: #FFFFFF;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(42, 75, 124, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(42, 75, 124, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(42, 75, 124, 0.8), rgba(58, 107, 197, 0.6));
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 159, 67, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 30px;
+            border-radius: 15px;
+            background: var(--light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 5%;
+            background: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        .step p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Featured Properties */
+        .featured-properties {
+            padding: 120px 5%;
+            background: white;
+        }
+
+        .properties-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .property-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            background: white;
+            position: relative;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .property-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-image:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        }
+
+        .property-actions {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .property-action-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .property-action-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .property-info {
+            padding: 25px;
+        }
+
+        .property-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .property-location {
+            color: var(--gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--gray);
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 15px;
+        }
+
+        .property-feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .property-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-book {
+            flex: 1;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-book:hover {
+            background: var(--primary-light);
+        }
+
+        .btn-detail {
+            flex: 1;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-detail:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 360 Tour Section */
+        .tour-section {
+            padding: 120px 5%;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .tour-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .tour-viewer {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: #1a1a2e;
+        }
+
+        .tour-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .tour-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tour-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 120px 5%;
+            background: white;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .blog-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            background: white;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .blog-content h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            gap: 10px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgb(255, 255, 255);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: #ff8c1a;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-column p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links, .nav-actions {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .steps-container, .properties-container, .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .newsletter-form input, .newsletter-form button {
+                border-radius: 0;
+            }
+        }
+
+        /* Modal Styles */
+            .modal {
+                display: none; 
+                position: fixed;
+                z-index: 9999;
+                left: 0; top: 0;
+                width: 100%; height: 100%;
+                overflow: auto;
+                background: rgba(0,0,0,0.6);
+                padding-top: 60px;
+                transition: all 0.3s ease-in-out;
+            }
+
+        .modal-content {
+                background: #fff;
+                margin: auto;
+                border-radius: 12px;
+                padding: 20px;
+                max-width: 800px;
+                position: relative;
+                animation: fadeIn 0.4s;
+        }
+
+        .close-btn {
+                color: #333;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+                font-size: 28px;
+                cursor: pointer;
+                transition: 0.3s;
+        }
+
+        .close-btn:hover { color: red; }
+
+        .modal-body {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+        }
+
+        .modal-image {
+                flex: 1 1 300px;
+                min-height: 250px;
+                border-radius: 10px;
+                background-size: cover;
+                background-position: center;
+        }
+
+        .modal-info {
+                flex: 1 1 300px;
+        }
+
+        .modal-info h2 { margin-top: 0; }
+        .modal-features { list-style: none; padding: 0; margin: 10px 0; }
+        .modal-features li { margin: 5px 0; }
+        .modal-price {
+                font-size: 20px;
+                color: #27ae60;
+                font-weight: bold;
+                margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-home"></i>
+                KosMe
+            </a>
+            <div class="nav-links">
+                <a href="#">Beranda</a>
+                <a href="#">Cari Kos</a>
+                <a href="#">Fitur</a>
+                <a href="#">Tour 360°</a>
+                <a href="#">Blog</a>
+                <a href="#">Kontak</a>
+            </div>
+            <div class="nav-actions">
+                <button class="cta-button">Daftarkan Kos</button>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://cdn.pixabay.com/video/2024/05/18/212404_large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Temukan Kos Premium dengan Tour Virtual 360°</h1>
+            <p>Jelajahi setiap sudut kos impian Anda secara virtual sebelum memutuskan untuk booking. Pengalaman pencarian kos yang lebih interaktif dan memuaskan.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary">
+                    <i class="fas fa-vr-cardboard"></i> Jelajahi Tour 360°
+                </button>
+                <button class="btn-secondary">Cari Kos di Sekitar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-number">5.000+</div>
+                <div class="stat-text">Kos Premium</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="stat-number">50+</div>
+                <div class="stat-text">Kota di Indonesia</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">25.000+</div>
+                <div class="stat-text">Pengguna Aktif</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-text">Rating Pengguna</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">Cara Kerja KosMe</h2>
+            <p class="section-subtitle">Dengan teknologi terbaru, kami memudahkan Anda menemukan kos impian dengan pengalaman virtual yang mendalam</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Cari & Filter</h3>
+                <p>Temukan kos berdasarkan lokasi, budget, fasilitas, dan preferensi lainnya. Gunakan filter canggih untuk menyempitkan pencarian.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Jelajahi Virtual 360°</h3>
+                <p>Gunakan fitur tour virtual untuk menjelajahi setiap sudut kos secara detail sebelum memutuskan untuk mengunjungi langsung.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Booking & Hubungi</h3>
+                <p>Booking kos pilihan Anda dan hubungi pemilik kos langsung melalui WhatsApp untuk informasi lebih lanjut.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="featured-properties">
+        <div class="section-header">
+            <h2 class="section-title">Kos Premium Pilihan</h2>
+            <p class="section-subtitle">Berikut adalah beberapa kos premium dengan fasilitas lengkap dan lokasi strategis</p>
+        </div>
+        <div class="properties-container">
+            <div class="property-card">
+                <div class="property-badge">Tour 360° Tersedia</div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1555854871-d6df9733f6ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="property-actions">
+                        <div class="property-action-btn" title="Lihat Gallery">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="property-action-btn" title="Tour Virtual 360°">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <h3>Kos Mawar Indah</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> Jakarta Selatan
+                    </div>
+                    <div class="property-features">
+                        <div class="property-feature">
+                            <i class="fas fa-bed"></i> 1 Kamar
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-bath"></i> Kamar Mandi Dalam
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-wifi"></i> WiFi
+                        </div>
+                    </div>
+                    <div class="property-price">Rp 1.500.000/bulan</div>
+                    <div class="property-buttons">
+                        <button class="btn-book" onclick="bookProperty('Kos Mawar Indah')">
+                            <i class="fab fa-whatsapp"></i> Pesan via WA
+                        </button>
+                        <button class="btn-detail">Detail</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-badge">Tour 360° Tersedia</div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="property-actions">
+                        <div class="property-action-btn" title="Lihat Gallery">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="property-action-btn" title="Tour Virtual 360°">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <h3>Kos Melati Asri</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> Bandung
+                    </div>
+                    <div class="property-features">
+                        <div class="property-feature">
+                            <i class="fas fa-bed"></i> 2 Kamar
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-bath"></i> Kamar Mandi Dalam
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-wifi"></i> WiFi
+                        </div>
+                    </div>
+                    <div class="property-price">Rp 2.200.000/bulan</div>
+                    <div class="property-buttons">
+                        <button class="btn-book" onclick="bookProperty('Kos Melati Asri')">
+                            <i class="fab fa-whatsapp"></i> Pesan via WA
+                        </button>
+                        <button class="btn-detail">Detail</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-badge">Tour 360° Tersedia</div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="property-actions">
+                        <div class="property-action-btn" title="Lihat Gallery">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="property-action-btn" title="Tour Virtual 360°">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <h3>Kos Anggrek Permai</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> Surabaya
+                    </div>
+                    <div class="property-features">
+                        <div class="property-feature">
+                            <i class="fas fa-bed"></i> 1 Kamar
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-bath"></i> Kamar Mandi Luar
+                        </div>
+                        <div class="property-feature">
+                            <i class="fas fa-wifi"></i> WiFi
+                        </div>
+                    </div>
+                    <div class="property-price">Rp 1.200.000/bulan</div>
+                    <div class="property-buttons">
+                        <button class="btn-book" onclick="bookProperty('Kos Anggrek Permai')">
+                            <i class="fab fa-whatsapp"></i> Pesan via WA
+                        </button>
+                        <button class="btn-detail">Detail</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 360 Tour Section -->
+    <section class="tour-section">
+        <div class="section-header">
+            <h2 class="section-title">Jelajahi Kos dengan Tour Virtual 360°</h2>
+            <p class="section-subtitle">Rasakan pengalaman immersive menjelajahi setiap sudut kos sebelum memutuskan untuk booking</p>
+        </div>
+        <div class="tour-container">
+            <div class="tour-viewer" id="tour-viewer">
+                <!-- 360 viewer akan dimuat di sini -->
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-size: 1.2rem;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-vr-cardboard" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <p>Tour Virtual 360° akan dimuat di sini</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tour-controls">
+                <button class="tour-btn">
+                    <i class="fas fa-play"></i> Mulai Tour
+                </button>
+                <button class="tour-btn">
+                    <i class="fas fa-expand"></i> Layar Penuh
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog">
+        <div class="section-header">
+            <h2 class="section-title">Tips & Informasi Terbaru</h2>
+            <p class="section-subtitle">Temukan tips memilih kos dan informasi terbaru seputar dunia perkos-an</p>
+        </div>
+        <div class="blog-container">
+            <div class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 15 Juni 2023</span>
+                        <span><i class="far fa-clock"></i> 5 min read</span>
+                    </div>
+                    <h3>5 Hal yang Perlu Diperhatikan Saat Memilih Kos</h3>
+                    <p class="blog-excerpt">Memilih kos yang tepat adalah langkah penting untuk kenyamanan selama tinggal. Berikut tips memilih kos yang sesuai kebutuhan...</p>
+                    <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 10 Juni 2023</span>
+                        <span><i class="far fa-clock"></i> 4 min read</span>
+                    </div>
+                    <h3>Fasilitas yang Harus Ada di Kos Modern</h3>
+                    <p class="blog-excerpt">Kos modern kini menawarkan berbagai fasilitas untuk kenyamanan penghuni. Apa saja fasilitas yang seharusnya ada di kos masa kini?</p>
+                    <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 5 Juni 2023</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h3>Perbandingan Harga Kos di 5 Kota Besar Indonesia</h3>
+                    <p class="blog-excerpt">Harga kos bervariasi tergantung lokasi dan fasilitas. Simak perbandingan harga kos di Jakarta, Bandung, Surabaya, Medan, dan Yogyakarta.</p>
+                    <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>Berlangganan Newsletter Kami</h2>
+        <p>Dapatkan informasi terbaru tentang kos-kos premium, tips memilih kos, dan penawaran spesial langsung di email Anda.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Masukkan alamat email Anda">
+            <button type="submit">Berlangganan</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>KosElegan</h3>
+                <p>Platform pencarian kos premium dengan fitur tour virtual 360° untuk pengalaman pencarian yang lebih mendalam dan memuaskan.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cari Kos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Tour 360°</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Tentang Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Kota Populer</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kos di Jakarta</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kos di Bandung</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kos di Surabaya</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kos di Yogyakarta</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kos di Medan</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Kontak Kami</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Contoh No. 123, Jakarta</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> (021) 1234-5678</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@koselegan.com</a></li>
+                    <li><a href="#"><i class="fab fa-whatsapp"></i> +62 812-3456-7890</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KosElegan. Semua hak dilindungi. | Dibuat dengan <i class="fas fa-heart" style="color: var(--accent);"></i> untuk pencari kos Indonesia</p>
+        </div>
+    </footer>
+
+     <!-- WhatsApp Float -->
+    <a href="https://wa.me/6281217773677?text=Halo,%20saya%20tertarik%20dengan%20kos%20yang%20ada%20di%20KosElegan" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+       <!-- Property Detail Modal -->
+<div id="property-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-body">
+            <div class="modal-image" style="background-image:url('https://source.unsplash.com/800x500/?apartment');"></div>
+            <div class="modal-info">
+                <h2>Kos Eksklusif Jakarta</h2>
+                <p>Lokasi: Jakarta Selatan</p>
+                <ul class="modal-features">
+                    <li><i class="fas fa-bed"></i> 1 Kamar Tidur</li>
+                    <li><i class="fas fa-wifi"></i> Internet WiFi</li>
+                    <li><i class="fas fa-shower"></i> Kamar Mandi Dalam</li>
+                    <li><i class="fas fa-tv"></i> Smart TV</li>
+                    <li><i class="fas fa-utensils"></i> Dapur Bersama</li>
+                </ul>
+                <div class="modal-price">Rp 2.500.000 / bulan</div>
+                <button class="btn-book"><i class="fas fa-calendar-check"></i> Booking Sekarang</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.stat-item, .step, .property-card, .blog-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(el);
+        });
+
+        // WhatsApp booking function
+        function bookProperty(propertyName) {
+            const phoneNumber = "6281217773677"; // Ganti dengan nomor WhatsApp bisnis
+            const message = `Halo, saya tertarik dengan ${propertyName} yang ada di KosElegan. Bisa minta informasi lebih lanjut?`;
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Simple 360 tour simulation
+        document.querySelector('.tour-btn').addEventListener('click', function() {
+            const tourViewer = document.getElementById('tour-viewer');
+            tourViewer.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
+                    <div>
+                        <i class="fas fa-sync-alt" style="font-size: 4rem; margin-bottom: 20px; animation: spin 4s linear infinite;"></i>
+                        <h3 style="margin-bottom: 10px;">Tour Virtual 360°</h3>
+                        <p>Gunakan mouse untuk menggerakkan pandangan</p>
+                        <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">Simulasi tour - dalam implementasi nyata akan menggunakan library 360° viewer</p>
+                    </div>
+                </div>
+            `;
+            
+            // Add CSS for spinning animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            const navActions = document.querySelector('.nav-actions');
+            
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+                navActions.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navActions.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '20px';
+                navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Modal Functionality
+        const modal = document.getElementById("property-modal");
+        const closeBtn = document.querySelector(".close-btn");
+        const detailButtons = document.querySelectorAll(".btn-detail");
+
+        detailButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+        modal.style.display = "block";
+        });
+    });
+
+         closeBtn.addEventListener("click", () => {
+         modal.style.display = "none";
+         });
+
+        window.addEventListener("click", (e) => {
+         if (e.target === modal) {
+        modal.style.display = "none";
+        }
+        });
+    </script>
+</body>
+</html>
